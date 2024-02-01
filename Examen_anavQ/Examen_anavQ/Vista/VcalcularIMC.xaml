@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Examen_anavQ.Vista.VcalcularIMC">
+
+
+    <StackLayout>
+        <Frame Padding="24" Margin="0,20,0,0" StyleClass="titulo">
+            <Label Text="Calcular IMC y FCN" HorizontalTextAlignment="Center" StyleId="encabezado" />
+        </Frame>
+        <Label>
+            puedes seleccionar entre calcular tu indice de masa corporal (IMC) y tu frecuencia cardiaca normal(FCN)
+        </Label>
+        
+        <Label Text="Opciones" Padding="0,30,0,0" FontAttributes="Bold"/>
+        <RadioButton Content="IMC"  x:Name="rbIMC"/>
+        <RadioButton Content="FCN"  x:Name="rbFNC"/>
+
+        <Label Text="Proporcionar Datos" FontAttributes="Bold"/>
+        <Entry Placeholder="Peso" x:Name="Peso" Keyboard="Numeric"  Text="{Binding Peso}">
+            <Entry.Triggers>
+                <DataTrigger TargetType="Entry" 
+                    Binding="{Binding Source={x:Reference rbIMC}, 
+                                       Path=IsChecked}" Value="True">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+                <DataTrigger TargetType="Entry" 
+                         Binding="{Binding Source={x:Reference rbIMC}, 
+                       Path=IsChecked}" Value="False">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Entry.Triggers>
+        </Entry>
+        <Entry Placeholder="Altura" x:Name="Altura" Keyboard="Numeric"   Text="{Binding Altura}">
+            <Entry.Triggers>
+                <DataTrigger TargetType="Entry" 
+          Binding="{Binding Source={x:Reference rbIMC}, 
+                             Path=IsChecked}" Value="True">
+
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+                <DataTrigger TargetType="Entry" 
+           Binding="{Binding Source={x:Reference rbIMC}, 
+         Path=IsChecked}" Value="False">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Entry.Triggers>
+        </Entry>
+
+        <Entry Placeholder="Latidos" x:Name="Latidos" Keyboard="Numeric" IsVisible="False" Text="{Binding Latidos}">
+            <Entry.Triggers>
+                <DataTrigger TargetType="Entry" 
+    Binding="{Binding Source={x:Reference rbFNC}, 
+                       Path=IsChecked}" Value="True">
+
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </Entry.Triggers>
+        </Entry>
+
+        <Label StyleId="resultado" Text="{Binding Imc}"/>
+        <Label StyleId="resultado" Text="{Binding Mensaje}"/>
+
+        <StackLayout Orientation="Horizontal" Margin="15">
+            <Image Source="{Binding Imagen}" WidthRequest="40">
+                <Image.GestureRecognizers>
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+
+        <Button Text="calcular IMC" TextColor="Black"  Command="{Binding CalcularIMCCommand}"/>
+
+    </StackLayout>
+</ContentPage>
